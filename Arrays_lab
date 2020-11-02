@@ -1,0 +1,107 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+#define size 10
+
+
+void main ()
+{
+    print_arr();
+    printf("Press any key to start next program: \n");
+    getch();
+    system("cls");
+    find_max_and_min();
+    printf("Press any key to next second program: \n");
+    getch();
+    system("cls");
+    twoD();
+}
+
+
+void print_arr(void)
+{
+    int numbers[size] = {0};
+    int index;
+    printf("Please enter 10 Numbers and i will print it back to you... \n\n");
+    for (index = 0; index < size; index++)
+    {
+        printf("Please enter a number: ");
+        scanf("%d", &numbers[index]);
+        printf("\n");
+    }
+    for (index = 0; index < size; index++)
+    {
+        printf("You have entered: %d\n",numbers[index]);
+    }
+}
+
+void find_max_and_min(void)
+{
+    int numbers[size] = {0};
+    int index;
+    int max;
+    int min;
+    printf("Enter 10 numbers and i will get the max and the min: \n");
+    for (index =0; index < size; index++)
+    {
+        printf("Please enter a number: ");
+        scanf("%d", &numbers[index]);
+        printf("\n");
+    }
+    max = numbers[0];
+    min = numbers[0];
+    for (index = 1; index <size; index++)
+    {
+        if(numbers[index]> max)
+            max = numbers[index];
+        if(numbers[index]< min)
+            min = numbers[index];
+    }
+    printf("The max Number is: %d\n", max);
+    printf("The min Number is: %d\n", min);
+    printf("\n");
+}
+
+void twoD(void)
+{
+        int row;
+        int col;
+        int sum;
+        int loc = 1;
+        int array [3] [4] = {{20,30,40,50},{60,70,80,90},{100,110,120,130}};
+
+        printf("The following array present courses and students grad....\n");
+        for(row = 0; row<3; row++)
+        {
+            for(col = 0; col<4; col++)
+            {
+                printf("%d  ", array[row][col]);
+            }
+            printf("\n");
+        }
+
+        for(row =0; row < 3; row++, loc++) //here is the outer loop for calculate the sum for each row
+        {
+            sum = 0;
+            for(col=0; col<4; col++)
+            {
+                sum+= array[row][col];
+            }
+            printf("The sum for the %d'Th row is: %d\n", loc, sum);
+        }
+
+        loc = 1;
+        printf("\n\n");
+
+        for(col = 0; col < 4; col++, loc++) //here is the outer loop for calculate the sum for each col
+        {
+            printf("\n");
+            sum = 0;
+            for(row=0; row<3; row++)
+            {
+                sum+= array[row][col];
+            }
+            printf("The sum for the %d'Th col is: %d\n", loc, sum);
+            printf("The Avg for the %d'Th col is: %d\n", loc, sum/row);
+        }
+}
