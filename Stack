@@ -1,0 +1,108 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define size 5
+
+
+int Stk[size];
+int top = -1;
+
+
+int isFull()
+{
+    if(top >= size)
+        return 1;
+    else
+        return 0;
+
+
+}
+
+
+int isEmpty()
+{
+    if(Stk[top] < 0)
+        return 1;
+    else
+        return 0;
+
+}
+
+
+
+int Push(int data)
+{
+    top++;
+    if(!isFull())
+        Stk[top] = data;
+    else
+    return 0;
+}
+
+int Pop(int *p)
+{
+    if(isEmpty())
+    {
+        return *p = 0;
+    }
+    else
+    {
+        int tmp = Stk[top];
+        top--;
+        return  *p = tmp;
+    }
+
+}
+
+
+
+
+
+
+
+void main()
+{
+    /*
+    int pushed;
+    int poped;
+    int check;
+
+    pushed = Push(5);
+    if(pushed != 0)
+        printf("Success pushed\n");
+    else
+        printf("Not Success.....\n");
+
+
+    pushed = Push(6);
+    if(pushed != 0)
+        printf("Success pushed\n");
+    else
+        printf("Not Success.....\n");
+
+
+
+
+    poped = Pop(&check);
+    if(poped != 0)
+        printf("Success poped\n");
+    else
+        printf("The stack is empty.....\n");
+
+
+
+    poped = Pop(&check);
+    if(poped != 0)
+        printf("Success poped\n");
+    else
+        printf("the stack is empty.....\n");
+
+
+
+    poped = Pop(&check);
+    if(poped != 0)
+        printf("Success poped\n");
+    else
+        printf("The stack is empty.....\n");*/
+
+
+}
