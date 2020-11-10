@@ -1,0 +1,99 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define size 5
+
+
+int Que[size];
+int front = -1;
+int rear  = -1;
+
+void Enque(int data)
+{
+    if(isFull())
+        printf("Queue is Full..\n");
+    else
+    {
+        if( rear == -1) // that mean this is the first input
+        {
+            rear = 0;
+            front = 0;
+
+        }
+        else if(rear == size-1 ) // reached the last index and there is an empty index at the start of the array
+        {
+            rear = 0;
+
+        }
+        else
+        {
+            rear++;
+
+        }
+        Que[rear] = data;
+    }
+
+
+
+}
+
+int Deque()
+{
+    int tmp = Que[front];
+
+
+    if(front == rear) front = -1, rear = -1;   //(front ==  size-1) front = 0;
+    else if (front == -1) tmp = 0; // no element in the Queue
+    else if (front ==  size-1) front = 0;  //( front == rear) front = -1, rear = -1;
+    else
+        front ++;
+
+
+    return tmp;
+}
+int isEmpty()
+{
+    if(rear == -1 && front == -1)
+        return 1;
+    else
+        return 0;
+
+}
+
+int isFull()
+{
+    if( front == 0 && rear == size-1 || ( rear+1 == front) )
+        return 1;
+    else
+        return 0;
+
+}
+
+void main()
+{
+ /*    Enque(3);
+    Enque(5);
+    Enque(7);
+    Enque(9);
+    Enque(11);
+
+    // removing 4 and still have one in the stack
+    printf("%d\n", Deque());
+    printf("%d\n", Deque());
+    printf("%d\n", Deque());
+    printf("%d\n", Deque());
+
+
+    Enque(14);
+    Enque(15);
+    Enque(16);
+    Enque(17);// here is full
+    printf("\n\n");
+    printf("%d\n", Deque());
+    printf("%d\n", Deque());
+    printf("%d\n", Deque());
+    printf("%d\n", Deque());
+    printf("%d\n", Deque());
+ */
+
+
+}
