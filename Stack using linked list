@@ -1,0 +1,135 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Node Node;
+
+struct Node
+{
+    int data;
+    Node *pre;
+
+};
+
+Node *top = NULL;
+
+Node * Create(int data)
+{
+    Node *newNode =(Node *) malloc(sizeof(Node));
+    newNode->data = data;
+    newNode->pre = NULL;
+
+
+    return  newNode;
+}
+
+
+
+int Push(Node *newNode)
+{
+    int pusheed = 0;
+
+    if(top == NULL) // this is the first node in the stack
+    {
+        top = newNode;
+        pusheed = 1;
+    }
+    else
+    {
+
+        newNode->pre = top;
+        top = newNode;
+        pusheed = 1;
+    }
+
+    return pusheed;
+}
+
+
+
+
+
+int isEmpty()
+{
+    if(top == NULL)
+        return 1;
+    else
+        return 0;
+}
+int Pop()
+{
+    int tmp;
+    if(!isEmpty())
+    {
+        tmp = top->data;
+        top = top->pre;
+
+    }
+    else
+        tmp = 0;
+
+    return tmp;
+
+}
+
+void main()
+{
+    int pusheed;
+
+
+    pusheed = Push(Create(5));
+    if(pusheed !=0)
+    {
+        printf("Success push 5..\n");
+    }
+    else
+        printf("Not Success push...\n");
+
+
+
+    pusheed = Push(Create(6));
+    if(pusheed !=0)
+    {
+        printf("Success push 6..\n");
+    }
+    else
+        printf("Not Success push...\n");
+
+
+    pusheed = Push(Create(7));
+    if(pusheed !=0)
+    {
+        printf("Success push 7..\n");
+    }
+    else
+        printf("Not Success push...\n");
+
+
+    printf("\n");
+
+    int popValue;
+
+    popValue = Pop();
+    if(popValue !=0 )
+        printf("You did poped: %d\n", popValue);
+    else
+        printf("NULL..\n");
+
+    popValue = Pop();
+    if(popValue !=0 )
+        printf("You did poped: %d\n", popValue);
+    else
+        printf("NULL..\n");
+
+
+
+    popValue = Pop();
+    if(popValue !=0 )
+        printf("You did poped: %d\n", popValue);
+    else
+        printf("NULL..\n");
+
+
+
+
+
+}
