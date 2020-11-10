@@ -1,0 +1,127 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Node Node;
+
+struct Node
+{
+    int data;
+    Node *pre;
+
+};
+
+Node *rear = NULL, *front= NULL;
+
+Node * Create(int data)
+{
+    Node *newNode =(Node *) malloc(sizeof(Node));
+    newNode->data = data;
+    newNode->pre = NULL;
+
+
+    return  newNode;
+}
+
+
+int isEmpty()
+{
+    if(rear == NULL)
+        return 1;
+    else
+        return 0;
+}
+
+
+
+void Enque(Node *newNode)
+{
+    if(rear == NULL && front == NULL) // first one
+        rear = newNode ; // still front not assgined
+
+    else if (front == NULL) // second
+    {
+        rear->pre = newNode;
+        front = newNode;
+
+    }
+    else
+    {
+        front->pre = newNode;
+        front = newNode;
+    }
+
+}
+
+
+
+
+int Deque()
+{
+    int tmp;
+    if(!isEmpty())
+    {
+        if(rear == front) // last one in the queue
+        {
+            tmp = rear->data ;
+            rear = NULL;
+        }
+        else
+        {
+            tmp = rear->data;
+            rear = rear->pre;
+        }
+
+    }
+    else // if the Queue is empty
+        tmp = 0;
+
+    return tmp;
+}
+
+
+void main()
+{
+
+    int del;
+
+
+    Enque(Create(5));
+    Enque(Create(6));
+    Enque(Create(7));
+
+
+
+    del = Deque(); //1
+    if(del != 0)
+        printf("You did delete: %d\n", del);
+    else
+        printf("The Queue is Empty..\n");
+
+
+
+    del = Deque(); //2
+    if(del != 0)
+        printf("You did delete: %d\n", del);
+    else
+        printf("The Queue is Empty..\n");
+
+
+
+    del = Deque(); //3
+    if(del != 0)
+        printf("You did delete: %d\n", del);
+    else
+        printf("The Queue is Empty..\n");
+
+
+
+    printf("\n");
+
+    del = Deque(); //4
+    if(del != 0)
+        printf("You did delete: %d\n", del);
+    else
+        printf("The Queue is Empty..\n");
+
+
+}
