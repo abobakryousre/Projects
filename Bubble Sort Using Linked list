@@ -1,0 +1,195 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+
+typedef struct Node Node;
+
+
+struct Node
+{
+    int data;
+    Node *next;
+
+};
+
+Node *head, *tail = NULL;
+
+int size = 0;
+
+
+Node* Create(int data)
+{
+    Node *newNode = (Node *) malloc(sizeof(Node));
+
+    newNode->data = data;
+    newNode->next = NULL;
+    size++;
+    return newNode;
+
+}
+
+
+void Add(Node *newNode)
+{
+    if(head == NULL)
+    {
+        head = tail= newNode;
+    }
+    else
+    {
+        tail->next = newNode;
+        tail = newNode;
+
+    }
+
+}
+
+
+
+void Display()
+{
+    Node *pCurrent = head;
+
+    for(int index = 0; index < size; index ++)
+    {
+        printf("%d ", pCurrent->data);
+        pCurrent = pCurrent->next;
+    }
+
+
+
+
+}
+
+
+/*void Swap_pointrt(Node *a, Node *b)
+{
+    Node *tmp = b;
+
+    if(a == head)
+    {
+        tmp = head;
+
+        head = b;
+        head->next = tmp;
+        head->prev = NULL;
+
+
+
+    }
+    else if(b == tail)
+    {
+
+
+
+    }
+    else
+    {
+        *b->prev = *a->prev;
+        *b->next = *a;
+
+        *a->prev = *b;
+        *a->next = tmp->next;
+
+
+    }
+
+
+
+
+}*/
+
+void Swap(Node *a, Node *b)
+{
+
+    Node *tmp = a;
+    a->data = b->data;
+    b->data = tmp->data;
+
+}
+
+
+
+void BubbleSort()
+{
+    int counter;
+    int index;
+    int swapped = 1;
+    Node *pSort = head;
+
+    for(counter = 0; counter < size-1; counter++)
+    {
+
+        for(index = 0; index < size -1; index ++)
+        {
+
+            if(pSort->data > pSort->next->data)
+            {
+
+
+                Swap(pSort, pSort->next);
+
+            }
+            pSort = pSort->next;
+
+        }
+        pSort = head;
+
+    }
+
+
+
+
+}
+
+void main()
+{
+    int flag = 1;
+    int index = 0;
+    int size;
+    
+    printf("please enter the size: ");
+    scanf("%d", &size);
+
+    int *array = (int *)malloc(size * sizeof(int));
+
+
+    printf("\n");
+
+
+   for( index = 0; index < size; index++)
+    {
+        printf("Please enter %d'Th number: ", index+1);
+        scanf("%d", &array[index]);
+        printf("\n");
+    }
+
+
+
+    // adding the number into linked list
+    for(index = 0; index < size; index ++)
+    {
+
+        Add(Create(array[index]));
+    }
+
+
+    printf("The number before sorting..\n");
+    Display();
+
+    printf("\n\n");
+
+    BubbleSort();
+
+    printf("\n");
+    printf("The number after sorting..\n");
+
+
+    Display();
+
+
+}
+
+
+
+
