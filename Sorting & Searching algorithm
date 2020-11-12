@@ -1,0 +1,207 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+
+void Swap(int *a, int *b)
+{
+    int tmp = *a;
+    *a = *b;
+    *b = tmp;
+
+
+}
+
+void BubbleSort(int *arr, int size)
+{
+
+    int index, count = 0;
+    int swapped = 1;
+
+    while (swapped)
+    {
+
+        swapped = 0;
+        for(index = 0; index < size -1 -count; index ++ )
+        {
+            if(arr[index] > arr[index +1])
+            {
+                Swap(&arr[index], &arr[index +1]);
+                swapped = 1;
+            }
+        }
+        count ++;
+
+    }
+
+}
+
+void SelectSort(int *arr, int size)
+{
+    int minIndex;
+    int index, counter;
+
+    for(counter = 0; counter < size; counter ++)
+    {
+        minIndex = counter;
+        for(index = counter +1; index < size; index ++)
+        {
+            if(arr[index] < arr[minIndex])
+                minIndex = index;
+        }
+        Swap(&arr[counter], &arr[minIndex]);
+    }
+
+
+}
+
+
+void InsertSort(int *arr, int size)
+{
+    int key ;
+    int counter;
+    int index;
+
+    for(counter = 1; counter< size; counter++)
+    {
+        key = arr[counter];
+        index = counter -1;
+
+
+        while(index >=0 && arr[index] > key)
+        {
+            arr[index +1] = arr[index];
+            index --;
+        }
+        arr[index +1] = key;
+    }
+
+}
+
+
+int BinarySearch(int *arr, int size, int data)
+{
+
+    int min, mid, max;
+
+    min = 0;
+    max = size-1;
+
+    while( min <= max)
+    {
+        mid = (min + max) / 2;
+
+        if(arr[mid] == data)
+            return mid;
+
+        if(data > arr[mid])
+            min = mid +1;
+        else                //(data < arr[mid])
+            max = mid -1;
+
+    }
+    return -1;
+}
+
+
+
+void main()
+{
+
+
+    int index;
+    int num;
+    int key;
+    int size;
+    int flag = 1;
+
+
+
+    printf("please enter the size: ");
+    scanf("%d", &size);
+
+    int *array = (int *)malloc(size * sizeof(int));
+
+
+    printf("\n");
+
+
+   for( index = 0; index < size; index++)
+    {
+        printf("Please enter %d'Th number: ", index+1);
+        scanf("%d", &array[index]);
+        printf("\n");
+    }
+
+    printf("\n");
+    printf("Chose which way you would like to sort with.....\n");
+
+    while(flag)
+    {
+
+        printf("1-BubbleSort..\n");
+        printf("2-SelectionSort..\n");
+        printf("3-InsertSort..\n");
+        printf("4-To Search in the array..\n");
+        printf("5-Exit\n");
+        scanf("%d", &num);
+        if(num == 1)
+        {
+            system("cls");
+            printf("Sorting your number using BubbleSort algorithm.....\n");
+            BubbleSort(array, size);
+
+            printf("\n");
+
+            for(index = 0; index < size; index++)
+                printf("%d ", array[index]);
+        }
+        else if (num == 2)
+        {
+            system("cls");
+            printf("Sorting your number using SelectionSort algorithm.....\n");
+            SelectSort(array, size);
+
+            for(index = 0; index < size; index++)
+                printf("%d ", array[index]);
+
+        }
+        else if (num == 3)
+        {
+            system("cls");
+            printf("\n");
+            printf("Sorting your number using InsertingSort algorithm.....\n");
+            InsertSort(array, size);
+
+            for(index = 0; index < size; index++)
+                printf("%d ", array[index]);
+
+        }
+        else if (num == 4)
+        {
+
+            printf("Enter The number that you would like to search for: ");
+            scanf("%d", &num);
+
+            printf("\n");
+
+            key = BinarySearch(array, size, num);
+            if(key != -1)
+                printf("I Found Your number in Location number %d, and it is = %d\n",key+1, array[key]);
+            else
+                printf("Your number is not exist..");
+
+
+        }
+        else if (num == 5)
+        {
+            flag = 0;
+        }
+        printf("\n");
+        printf("\n");
+
+    }
+
+
+}
+
+
