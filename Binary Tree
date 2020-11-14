@@ -1,0 +1,254 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+
+typedef struct Node Node;
+
+struct Node
+{
+    int data;
+    Node *left, *right;
+};
+
+
+Node *root = NULL;
+
+
+// function to create the node and return pointer to this node
+Node* Create(int data)
+{
+
+    Node *newNode = (Node*)malloc(sizeof(Node));
+    newNode->data = data;
+    newNode->left = newNode->right = NULL;
+
+    return newNode;
+}
+
+//function to add the node into the binary tree
+void Add(Node *newNode)
+{
+    Node *pCurrent = root;
+    Node *parent;
+
+    if(root == NULL)
+        root = newNode;
+    else
+    {
+        while(pCurrent != NULL)
+        {
+            parent = pCurrent;
+            if(newNode->data > pCurrent->data)
+                pCurrent = pCurrent->right;
+
+            else
+               pCurrent = pCurrent->left;
+
+        }
+
+        if(newNode->data > parent->data)
+            parent->right = newNode;
+
+        else
+            parent->left = newNode;
+
+    }
+
+}
+// function to return pointer in the node with some desire data
+Node* Search(int data)
+{
+    Node * pSearch = root;
+    while(pSearch != NULL)
+    {
+        if(data == pSearch->data)
+            return pSearch;
+
+
+        else if (data > pSearch->data)
+        {
+            pSearch = pSearch->right;
+
+        }
+        else if( data < pSearch->data)
+        {
+            pSearch = pSearch->left;
+
+        }
+
+    }
+
+    return NULL;
+}
+
+//function to return pointer in the parent of some node
+
+Node* GetParetn(Node *node)
+{
+    Node *parent = root;
+
+    while(parent != NULL)
+    {
+
+        if(parent->right == node || parent->left == node)
+            return parent;
+
+        else if(node->data > parent->data)
+            parent = parent->right;
+        else
+            parent = parent->left;
+    }
+
+    return NULL;
+
+}
+
+//function to display all the binary tree starting with the root (Travers Left Data Right)
+
+void DispalyLDR(Node *pointer)
+{
+
+    if(pointer == NULL)
+        return;
+
+
+    DispalyLDR(pointer->left);
+    printf("%d   ", pointer->data);
+    DispalyLDR(pointer->right);
+
+
+}
+
+
+
+//function to delete node from the tree
+void Delete(Node *pDelate)
+{
+
+    Node *pCurrent;
+    Node *parent;
+
+    if(pDelate == root) // first we check if it the root
+    {
+        if (root->left == NULL && root->right == NULL) // if the tree is empty
+            root = NULL;
+
+
+        else if(root->left == NULL) // the root only has one side ( the right side)
+        {
+            root = root->right;
+        }
+        else if (root->right == NULL)  // the root only has one side ( the lift  side)
+        {
+            root = root->left;
+
+        }
+        else // the root has two side, we will move the root to the right side,  and make a new connection
+        {
+            pCurrent = root->right; //  first step go right
+            while(pCurrent->left != NULL) // second step got at the last left tail
+                pCurrent = pCurrent->left;
+
+            pCurrent->left = root->left; // connect the last left with the root left before delete the root
+            root = root->right;
+
+        }
+    }
+    else // we need to delete any other node but not the root
+    {
+        parent = GetParetn(pDelate);
+        if(pDelate->right == NULL && pDelate->left == NULL) // this node has no children
+        {
+             // we need to remove the parent relation with this node
+
+            if(parent->left == pDelate)
+                parent->left = NULL;
+            else
+                parent->right = NULL;
+        }
+        else if (pDelate->left == NULL) // that mean there is only one side ( the right size)
+        {
+
+            if(parent->left == pDelate)
+                parent->left = pDelate->right;
+            else
+                parent->right = pDelate->right;
+
+        }
+        else if (pDelate->right == NULL) // that mean there is only one side ( the left  size)
+        {
+
+            if(parent->left == pDelate)
+                parent->left = pDelate->left;
+            else
+                parent->right = pDelate->left;
+
+        }
+        else // the node has two side,
+        {
+            pCurrent = pDelate->right;
+            while(pCurrent->left != NULL)
+                pCurrent =  pCurrent->left;
+
+            pCurrent->left = pDelate->left;
+
+            if(parent->right == pDelate)
+                parent->right = pDelate->right;
+            else
+                parent->left = pDelate->right;
+
+        }
+
+    }
+
+
+}
+
+void main()
+{
+    Node *p;
+    int flag = 1;
+    int number, opetion;
+
+    while(flag)
+    {
+        system("cls");
+        printf("1-Add number in The tree..\n");
+        printf("2-Display All the numbers..\n");
+        printf("3-Delete number from The tree..\n");
+        printf("4-Exit...\n");
+        scanf(" %d", &opetion);
+
+        switch (opetion)
+        {
+        case 1:
+            do
+            {
+                printf("Please enter Your number Or enter '0' to exit...\n");
+                scanf("%d", &number);
+                if(number != 0)
+                    Add(Create(number));
+            }while (number != 0);
+            break;
+        case 2:
+            system("cls");
+            DispalyLDR(root);
+            getch();
+            break;
+        case 3:
+            printf("Please enter Your number Or enter '0' to exit...\n");
+            scanf("%d", &number);
+            if(number != 0)
+            {
+                p = Search(number);
+                Delete(p);
+            }
+            break;
+        case 4:
+            flag = 0;
+            break;
+        }
+
+    }
+
+}
